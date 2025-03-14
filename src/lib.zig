@@ -76,13 +76,13 @@ pub usingnamespace @import("./AnyReader.zig");
 pub usingnamespace @import("./sum.zig");
 pub usingnamespace @import("./RingBuffer.zig");
 
-pub fn fd_realpath(fd: std.os.fd_t) ![std.fs.MAX_PATH_BYTES:0]u8 {
+pub fn fd_realpath(fd: std.posix.fd_t) ![std.fs.MAX_PATH_BYTES:0]u8 {
     switch (builtin.os.tag) {
         .linux => {
             var buf = std.mem.zeroes([64]u8);
             var res = std.mem.zeroes([std.fs.MAX_PATH_BYTES:0]u8);
             const str = try std.fmt.bufPrint(&buf, "/proc/self/fd/{d}", .{fd});
-            _ = try std.os.readlink(str, &res);
+            _ = try std.posix.readlink(str, &res);
             return res;
         },
         else => @compileError("not implemented!"),
@@ -92,3 +92,15 @@ pub fn fd_realpath(fd: std.os.fd_t) ![std.fs.MAX_PATH_BYTES:0]u8 {
 pub usingnamespace @import("./rawInt.zig");
 pub usingnamespace @import("./expectSimilarType.zig");
 pub usingnamespace @import("./rawIntBytes.zig");
+pub usingnamespace @import("./globalOption.zig");
+pub usingnamespace @import("./OneSmallerInt.zig");
+pub usingnamespace @import("./FlippedInt.zig");
+pub usingnamespace @import("./isZigString.zig");
+pub usingnamespace @import("./isIndexable.zig");
+pub usingnamespace @import("./isSlice.zig");
+pub usingnamespace @import("./matchesNone.zig");
+pub usingnamespace @import("./indexOfSlice.zig");
+pub usingnamespace @import("./mapBy.zig");
+pub usingnamespace @import("./lessThanBy.zig");
+pub usingnamespace @import("./isContainer.zig");
+pub usingnamespace @import("./hasFn.zig");
